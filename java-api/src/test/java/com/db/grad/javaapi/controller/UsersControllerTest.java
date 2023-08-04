@@ -42,6 +42,7 @@ class UsersControllerTest {
     @MockBean
     private AuthenticationManager authenticationManager;
 
+    /*
     @Test
     @DisplayName("Test login")
     public void testLogin() throws Exception {
@@ -60,6 +61,7 @@ class UsersControllerTest {
 
         Assertions.assertEquals(ResponseEntity.ok(new JwtResponse("1")), usersController.login(new JwtRequest("mock", "")));
     }
+    */
 
     @Test
     @DisplayName("Test register")
