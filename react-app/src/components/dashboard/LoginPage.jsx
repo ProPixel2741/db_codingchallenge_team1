@@ -1,12 +1,16 @@
 import React from "react";
 import Form from "react-bootstrap/Form"
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { login } from "../../services/AuthenticationService";
 
 export const LoginPage = () => {
-
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const [isBadPassword, setIsBadPassword] = useState(false);
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
@@ -19,15 +23,24 @@ export const LoginPage = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         let user = {};
+
         user.username = username;
         user.password = password;
         console.log(user);
-        // handle login validation
-        if (true) {
-            window.location.href="http://localhost:3000/dashboard";
-        } else {
-            window.location.href="http://localhost:3000/";
-        }
+        
+        login(user).then(response => {
+            console.log(response.data)
+            navigate('/dashboard', {state: user})
+        }).catch(function (error) {
+            console.log(error.response.status);
+            setIsBadPassword(true);
+            
+        })
+        // if (true) {
+        //     window.location.href="http://localhost:3000/dashboard";
+        // } else {
+        //     window.location.href="http://localhost:3000/";
+        // }
     }
 
     return (
@@ -39,15 +52,14 @@ export const LoginPage = () => {
         <body>Enter username and password or sign up <a href="/signup">here</a>.</body>
         <Form className="form">
             <Form.Group>
-                <Form.Label>Username: </Form.Label>
-                <Form.Control type="text" value={username} onChange={handleUsernameChange}/>
+                <TextField required id="username" label="Username" variant="standard" value={username} onChange={handleUsernameChange}/>
             </Form.Group>
             <Form.Group>
-                <Form.Label>Password:&nbsp;&nbsp;</Form.Label>
-                <Form.Control type="text" value={password} onChange={handlePasswordChange}/>
+                <TextField required id="password" error={isBadPassword} helperText={isBadPassword ? "Incorrect Password": ""} label="Password" type="password" variant="standard" value={password} onChange={handlePasswordChange}/>
             </Form.Group>
             <br/>
-            <Button type="submit" onClick={handleSubmit} variant="contained">Login</Button>
+            <Button variant="contained" disabled={!username || !password} onClick={handleSubmit}>Login</Button>
+            {/* <Button type="submit" onClick={handleSubmit} variant="contained">Login</Button> */}
         </Form>
         </>
     )

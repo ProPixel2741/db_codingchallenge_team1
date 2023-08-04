@@ -9,6 +9,7 @@ import com.db.grad.javaapi.model.Security;
 import com.db.grad.javaapi.service.SecuritiesService;
 
 @RestController
+@CrossOrigin(origins="http://localhost:3000")
 @RequestMapping("/api/v1")
 public class SecuritiesController {
 
