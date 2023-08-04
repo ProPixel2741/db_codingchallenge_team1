@@ -1,14 +1,12 @@
 package com.db.grad.javaapi.controller;
 
-import com.db.grad.javaapi.entity.ErrorResponse;
 import com.db.grad.javaapi.entity.JwtRequest;
 import com.db.grad.javaapi.entity.JwtResponse;
 import com.db.grad.javaapi.model.Users;
 import com.db.grad.javaapi.service.UsersService;
 import com.db.grad.javaapi.utils.JwtUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

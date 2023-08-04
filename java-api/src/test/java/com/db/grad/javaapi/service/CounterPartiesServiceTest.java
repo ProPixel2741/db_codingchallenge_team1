@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.db.grad.javaapi.model.Book;
 import com.db.grad.javaapi.model.CounterParty;
 import com.db.grad.javaapi.repository.CounterPartiesRepository;
 
