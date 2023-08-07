@@ -1,15 +1,18 @@
 package com.db.grad.javaapi.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "security")
 public class Security {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private int id;
+    
     private String isin;
     private String cusip;
     private String issuer_name;
@@ -20,7 +23,6 @@ public class Security {
     private String currency;
     private String status;
 
-    @Id
     public int getId() {
         return id;
     }

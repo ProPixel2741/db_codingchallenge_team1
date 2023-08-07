@@ -3,16 +3,13 @@ package com.db.grad.javaapi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.db.grad.javaapi.service.TradesService;
 import com.db.grad.javaapi.model.Trade;
 
 @RestController
+@CrossOrigin(origins="http://localhost:3000")
 @RequestMapping("/api/v1")
 public class TradesController {
 
@@ -22,6 +19,11 @@ public class TradesController {
     @GetMapping("/trades")
     public List<Trade> getAllTrades() {
         return tradesService.getAllTrades();
+    }
+
+    @GetMapping("/trades/user/{username}")
+    public List<Trade> getTradesByUsername(@PathVariable String username) {
+        return tradesService.getAllTradesByUsername(username);
     }
 
     @GetMapping("/trades/{id}")

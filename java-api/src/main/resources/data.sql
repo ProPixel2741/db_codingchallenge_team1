@@ -66,3 +66,12 @@ INSERT INTO trade(id,buy_sell,currency,quantity,settlement_date,trade_date,unit_
 INSERT INTO trade(id,buy_sell,currency,quantity,settlement_date,trade_date,unit_price,book_id,counter_party_id,security_id) VALUES (27,'buy','USD',300,'2021-09-27','2013-02-04',98.76,4,11,5);
 INSERT INTO trade(id,buy_sell,currency,quantity,settlement_date,trade_date,unit_price,book_id,counter_party_id,security_id) VALUES (28,'sell','USD',300,'2021-08-23','2015-08-23',98.76,4,11,5);
 
+INSERT INTO users(id, username, password, role) VALUES (0, 'DEV', '$2a$10$q/ejSAjpbtScNCXyZbdQOOUcbDUvbwDvqqVFBYZ7RQoF8g4MrPazq', 'ADMIN');
+INSERT INTO users(id, username, password, role) VALUES (1, 'TestUser1', '$2a$10$sqi7jUQfCgWXPm1IOmHI0el2yOXMyEsRB9SHKqeYleJe5vo9G.Yp6', 'USER');
+INSERT INTO users(id, username, password, role) VALUES (2, 'TestUser2', '$2a$10$r6KTKs2GvjRAmk4R0NW5f.vD.pwXzpcP02.9oxugBA8nJfxkKQ/Bi', 'USER');
+
+INSERT INTO book_user(user_id, book_id) VALUES (1, 1);
+INSERT INTO book_user(user_id, book_id) VALUES (1, 3);
+INSERT INTO book_user(user_id, book_id) VALUES (2, 2);
+INSERT INTO book_user(user_id, book_id) VALUES (2, 4);
+
