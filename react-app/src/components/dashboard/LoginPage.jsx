@@ -30,7 +30,7 @@ export const LoginPage = () => {
         
         login(user).then(response => {
             console.log(response.data)
-            navigate('/dashboard', {state: user})
+            navigate('/dashboard', {state: {username: user.username, token: response.data.token}})
         }).catch(function (error) {
             console.log(error.response.status);
             setIsBadPassword(true);
