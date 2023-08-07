@@ -44,7 +44,7 @@ export const LoginPage = () => {
         <br/>
         <h2>Login</h2>
         <h2></h2>
-        <body>Enter username and password or sign up <a href="/signup">here</a>.</body>
+        <body>Enter username and password.</body>
         <Form className="form">
             <Form.Group>
                 <TextField required id="username" label="Username" variant="standard" value={username} onChange={handleUsernameChange}/>
