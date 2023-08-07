@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class UsersTest {
     @Test
     void testGetId() {
@@ -47,5 +50,22 @@ public class UsersTest {
         String actual = u.getUsername();
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGetOwnedBooks() {
+        Users u = new Users();
+        Book book1 = new Book();
+        Book book2 = new Book();
+        Book book3 = new Book();
+
+        Set<Book> ownedBooks = new HashSet<>();
+        ownedBooks.add(book1);
+        ownedBooks.add(book2);
+        ownedBooks.add(book3);
+
+        u.setOwnedBooks(ownedBooks);
+
+        assertEquals(u.getOwnedBooks().toString(), ownedBooks.toString());
     }
 }
