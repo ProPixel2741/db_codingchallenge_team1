@@ -21,7 +21,7 @@ export const Dashboard = () => {
         {field: "unit_price", headerName: "Unit Price", width: 100},
         {field: "buy_sell", headerName: "Buy / Sell", width: 100},
         {field: "book_name", headerName: "Trading Book", width: 100},
-        {field: "counter_party_name", headerName: "Counter Party", width: 100},
+        {field: "counter_party_name", headerName: "Bond Holder", width: 100},
         {field: "isin", headerName: "ISIN", width: 100},
         {field: "cusip", headerName: "CUSIP", width: 100},
         {field: "issuer_name", headerName: "Bond Issuer", width: 100},
