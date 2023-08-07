@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from "@mui/material";
+import { useLocation } from "react-router-dom";
 import { getAllTrades } from "../../services/DashboardService";
 
 export const Dashboard = () => {
-
+    const { state } = useLocation();
     const [data, setData] = useState([]);
 
     const handleSubmit = (event) => {
@@ -13,15 +14,13 @@ export const Dashboard = () => {
     }
 
     useEffect(() => {
-        getAllTrades()
+        getAllTrades(state.token)
               .then(({data}) => {
               setData(data);
               });
-    }, []);
-
-    const rows = [
-        
-    ];
+    }, [state]);
+    
+    const rows = [];
 
     function jsonParseToRow(jsonObject, uniqueId) {
         return {

@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .cors().and()
                 .authorizeRequests()
                 // Public Routes
-                .antMatchers("**").permitAll() ///api/v1/auth/**
+                .antMatchers("/api/v1/auth/**").permitAll() ///api/v1/auth/**
 
                 // Private Routes
 
