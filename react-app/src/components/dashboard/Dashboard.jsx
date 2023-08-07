@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGridPro } from '@mui/x-data-grid-pro';
 import { Button, Stack, Checkbox, Divider } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,13 +10,15 @@ export const Dashboard = () => {
     const navigate = useNavigate();
 
     const [data, setData] = useState([]);
-    const [date,setDate] = useState("");
-
-
-    const [myBondFilter, setMyBondFilter] = useState(false);
     const [myBondData, setMyBondData] = useState([]);
     const [bondData, setBondData] = useState([]);
+
+    const [date,setDate] = useState("");
+
+    const [myBondFilter, setMyBondFilter] = useState(false);
     const [myDateFilter,setMyDateFilter] = useState(false);
+
+    
 
 
     let formattedDate = "";
@@ -32,24 +34,24 @@ export const Dashboard = () => {
 
 
     const cols = [
-        {field: "id", headerName: "ID", width: 50},
-        {field: "currency", headerName: "Currency", width: 100},
-        {field: "quantity", headerName: "Quantity", width: 100},
-        {field: "unit_price", headerName: "Unit Price", width: 100},
-        {field: "buy_sell", headerName: "Buy / Sell", width: 100},
-        {field: "book_name", headerName: "Trading Book", width: 100},
-        {field: "counter_party_name", headerName: "Bond Holder", width: 100},
-        {field: "isin", headerName: "ISIN", width: 100},
-        {field: "cusip", headerName: "CUSIP", width: 100},
-        {field: "issuer_name", headerName: "Bond Issuer", width: 100},
-        {field: "maturity_date", headerName: "Maturity Date YYYY-MM-DD", width: 100},
-        {field: "coupon", headerName: "Coupon%", width: 100},
-        {field: "type", headerName: "Bond Type", width: 100},
-        {field: "face_value", headerName: "Face Value", width: 100},
-        {field: "security_currency", headerName: "Security Currency", width: 100},
-        {field: "status", headerName: "Status", width: 100},
-        {field: "trade_date", headerName: "Trade Date YYYY-MM-DD", width: 100},
-        {field: "settlement_date", headerName: "Settlement Date YYYY-MM-DD", width: 100},
+        {field: "id", headerName: "ID", flex: 1, resizable: true},
+        {field: "currency", headerName: "Currency", flex: 1, resizable: true},
+        {field: "quantity", headerName: "Quantity", flex: 1, resizable: true},
+        {field: "unit_price", headerName: "Unit Price", flex: 1, resizable: true},
+        {field: "buy_sell", headerName: "Buy / Sell", flex: 1, resizable: true},
+        {field: "book_name", headerName: "Trading Book", flex: 1, resizable: true},
+        {field: "counter_party_name", headerName: "Bond Holder", flex: 1, resizable: true},
+        {field: "isin", headerName: "ISIN", flex: 1, resizable: true},
+        {field: "cusip", headerName: "CUSIP", flex: 1, resizable: true},
+        {field: "issuer_name", headerName: "Bond Issuer", flex: 1, resizable: true},
+        {field: "maturity_date", headerName: "Maturity Date YYYY-MM-DD", flex: 1, resizable: true},
+        {field: "coupon", headerName: "Coupon%", flex: 1, resizable: true},
+        {field: "type", headerName: "Bond Type", flex: 1, resizable: true},
+        {field: "face_value", headerName: "Face Value", flex: 1, resizable: true},
+        {field: "security_currency", headerName: "Security Currency", flex: 1, resizable: true},
+        {field: "status", headerName: "Status", flex: 1, resizable: true},
+        {field: "trade_date", headerName: "Trade Date YYYY-MM-DD", flex: 1, resizable: true},
+        {field: "settlement_date", headerName: "Settlement Date YYYY-MM-DD", flex: 1, resizable: true},
     ];
 
     const rows = [];
@@ -164,7 +166,7 @@ export const Dashboard = () => {
             </Stack>
         </div>
         <div>
-            <DataGrid rows={rows} columns={cols} getRowId={(row) => row.id}
+            <DataGridPro rows={rows} columns={cols} getRowId={(row) => row.id}
                 sx={{
                     m:5,
                     boxShadow: 2,

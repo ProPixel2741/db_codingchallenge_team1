@@ -36,11 +36,6 @@ export const LoginPage = () => {
             setIsBadPassword(true);
             
         })
-        // if (true) {
-        //     window.location.href="http://localhost:3000/dashboard";
-        // } else {
-        //     window.location.href="http://localhost:3000/";
-        // }
     }
 
     return (
@@ -59,7 +54,6 @@ export const LoginPage = () => {
             </Form.Group>
             <br/>
             <Button variant="contained" disabled={!username || !password} onClick={handleSubmit}>Login</Button>
-            {/* <Button type="submit" onClick={handleSubmit} variant="contained">Login</Button> */}
         </Form>
         </>
     )
