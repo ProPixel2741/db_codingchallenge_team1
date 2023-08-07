@@ -1,6 +1,8 @@
 package com.db.grad.javaapi.controller;
 
+import com.db.grad.javaapi.model.CounterParty;
 import com.db.grad.javaapi.model.Trade;
+import com.db.grad.javaapi.model.Users;
 import com.db.grad.javaapi.service.TradesService;
 
 import static org.mockito.Mockito.doReturn;
@@ -48,5 +50,16 @@ class TradesControllerTest {
         doReturn(trade).when(tradesService).getTradeById(1);
 
         Assertions.assertEquals(trade, tradesController.getTradeById(1));
+    }
+
+    @Test
+    @DisplayName("Test getTradesByUsername")
+    public void testGetTradesByUsername() {
+        Users user = new Users();
+        user.setUsername("TestUser1");
+        List<Trade> trades = tradesController.getTradesByUsername(user.getUsername());
+        doReturn(trades).when(tradesService).getAllTradesByUsername(user.getUsername());
+
+        Assertions.assertEquals(trades, tradesController.getTradesByUsername(user.getUsername()));
     }
 }

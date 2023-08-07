@@ -1,5 +1,6 @@
 package com.db.grad.javaapi.service;
 
+import com.db.grad.javaapi.model.Users;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -51,5 +52,16 @@ public class TradesServiceTest {
         Trade returnedTrade = tradesService.getTradeById(1);
 
         Assertions.assertEquals(returnedTrade, tradesRepository.findById(1).get());
+    }
+
+    @Test
+    @DisplayName("Test getTradesByUsername")
+    public void testGetTradesByUsername() {
+        Users user = new Users();
+        user.setUsername("TestUser1");
+        List<Trade> trades = tradesService.getAllTradesByUsername(user.getUsername());
+        doReturn(trades).when(tradesRepository).findTradesByUsername(user.getUsername());
+
+        Assertions.assertEquals(trades, tradesRepository.findTradesByUsername(user.getUsername()));
     }
 }
