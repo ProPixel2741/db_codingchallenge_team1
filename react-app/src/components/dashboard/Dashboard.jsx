@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import { Button, Stack, Checkbox, Divider } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAllTrades, getUserTrades } from "../../services/DashboardService";
 
@@ -9,10 +10,26 @@ export const Dashboard = () => {
     const navigate = useNavigate();
 
     const [data, setData] = useState([]);
+    const [date,setDate] = useState("");
+
 
     const [myBondFilter, setMyBondFilter] = useState(false);
     const [myBondData, setMyBondData] = useState([]);
     const [bondData, setBondData] = useState([]);
+    const [myDateFilter,setMyDateFilter] = useState(false);
+
+
+    let formattedDate = "";
+
+    const formatDate = (date) => {
+        if((parseInt(date['$M'],10)+1)<10){
+            formattedDate = date['$y']+'-'+("0"+(parseInt(date['$M'],10)+1))+'-'+date['$D'];
+        }else {
+            formattedDate = date['$y']+'-'+(parseInt(date['$M'],10)+1)+'-'+date['$D'];
+        }
+        return formattedDate;
+    } 
+
 
     const cols = [
         {field: "id", headerName: "ID", width: 50},
@@ -37,6 +54,18 @@ export const Dashboard = () => {
 
     const rows = [];
 
+    const getDatesAroundEnteredDate = (formattedDate) => {
+        const dates = [];
+        const currentDate = new Date(formattedDate);
+    
+        for(let i =- 5; i <= 5; i++){
+            const newDate = new Date(currentDate);
+            newDate.setDate(currentDate.getDate() + i);
+            dates.push(newDate.toISOString().split('T')[0]);
+        }
+        return dates;
+       }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         navigate('/', {state: {}});
@@ -47,6 +76,11 @@ export const Dashboard = () => {
         console.log(myBondFilter)
         return
     };
+    
+    const handleMyDateFilterToggle = () => {
+        setMyDateFilter(!myDateFilter);
+    }
+
 
     useEffect(() => {
         getAllTrades(state.token)
@@ -61,12 +95,31 @@ export const Dashboard = () => {
     }, [state]);
     
     useEffect(() => {
-        if (myBondFilter) {
+        if (myBondFilter && !myDateFilter) {
             setData(myBondData);
-        } else {
+        } else if(myBondFilter && myDateFilter){
+            const dates = getDatesAroundEnteredDate(formatDate(date));
+            const newData = [];
+            for (var i = 0; i <myBondData.length; i++) {
+                if (dates.indexOf(myBondData[i].security.maturity_date)>-1){
+                    newData.push(myBondData[i]);
+                }  
+            }
+            setData(newData);
+        }else if(!myBondFilter && myDateFilter){
+            const dates = getDatesAroundEnteredDate(formatDate(date));
+            const newData = [];
+            for (var i = 0; i < bondData.length; i++) {
+                if (dates.indexOf(bondData[i].security.maturity_date)>-1){
+                    newData.push(bondData[i]);
+                }  
+            }
+            setData(newData);
+        }else{
             setData(bondData);
-        }
-    }, [myBondFilter]);
+        } 
+    }, [myBondFilter, myDateFilter]);
+
 
     function jsonParseToRow(jsonObject, uniqueId) {
         return {
@@ -103,6 +156,10 @@ export const Dashboard = () => {
                 <div>
                     <label>Show my Bonds</label>
                     <Checkbox checked={myBondFilter} label="Show my Bonds" onChange={handleMyBondsFilterToggle}/>  
+                </div>
+                <div>
+                    <DatePicker label="Select a date" onChange={(date) => setDate(date)} />
+                    <Checkbox checked={myDateFilter} disabled={!date} label="Filter Date" onChange={handleMyDateFilterToggle}/> 
                 </div>
             </Stack>
         </div>
