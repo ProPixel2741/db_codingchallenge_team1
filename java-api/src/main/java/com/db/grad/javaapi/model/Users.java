@@ -1,7 +1,6 @@
 package com.db.grad.javaapi.model;
 
 
-import com.db.grad.javaapi.utils.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
