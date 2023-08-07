@@ -42,15 +42,16 @@ class UsersControllerTest {
     @MockBean
     private AuthenticationManager authenticationManager;
 
-    /*
+
     @Test
     @DisplayName("Test login")
     public void testLogin() throws Exception {
         Users user = new Users();
         user.setId(1);
         user.setUsername("mock");
-        user.setPassword("");
+        user.setPassword("mock");
         user.setRole("");
+
         UserBuilder userBuilder = User.withUsername("mock");
         userBuilder.password(user.getPassword());
         userBuilder.roles(user.getRole());
@@ -59,9 +60,8 @@ class UsersControllerTest {
         doReturn("1").when(jwtUtil).generateToken(userBuilder.build());
         doReturn(null).when(authenticationManager).authenticate(new UsernamePasswordAuthenticationToken("mock", ""));
 
-        Assertions.assertEquals(ResponseEntity.ok(new JwtResponse("1")), usersController.login(new JwtRequest("mock", "")));
+        Assertions.assertEquals(ResponseEntity.ok(new JwtResponse("1")).getStatusCode(), usersController.login(new JwtRequest("mock", "")).getStatusCode());
     }
-    */
 
     @Test
     @DisplayName("Test register")
@@ -72,5 +72,16 @@ class UsersControllerTest {
         user.setRole("ADMIN");
         doThrow(new UsernameNotFoundException(user.getUsername())).when(usersService).loadUserByUsername("mock");
         Assertions.assertEquals(ResponseEntity.ok(usersService.registerUser(user)), usersController.register(user));
+    }
+
+    @Test
+    @DisplayName("Test register SAD")
+    public void testRegisterFails() {
+        Users user = new Users();
+        user.setUsername("mock");
+        user.setPassword("password");
+        user.setRole("ADMIN");
+        doReturn(null).when(usersService).loadUserByUsername("mock");
+        Assertions.assertEquals(ResponseEntity.status(409).body("Username already exists.").getStatusCode(), usersController.register(user).getStatusCode());
     }
 }
